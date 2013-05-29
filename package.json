@@ -1,0 +1,19 @@
+{
+    "name": "inkibra-graph",
+    "description": "A Graph Search Layer for Redis",
+    "version": "0.0.1",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/bradleat/inkibra-graph.git"
+    },
+    "dependencies": {
+        "zappajs": "0.4.x",
+        "redis": "0.8.x",
+        "coffee-script": "1.6.x"
+
+    },
+    "engines": {
+        "node": "0.10.x"
+    }
+}
