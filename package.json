@@ -10,10 +10,14 @@
     "dependencies": {
         "zappajs": "0.4.x",
         "redis": "0.8.x",
+        "hiredis": "0.1.x",
         "coffee-script": "1.6.x"
 
     },
     "engines": {
         "node": "0.10.x"
+    },
+    "config": {
+        "namespace": "default"
     }
 }

@@ -1,0 +1,15 @@
+# Log Files
+*.log
+
+# Setup Directory
+setup/
+
+# node_modules directory
+node_modules/
+
+# Cakefile
+#Cakefile
+
+# Any Javascript
+*.js
+ 

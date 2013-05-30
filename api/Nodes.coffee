@@ -1,23 +1,27 @@
 #callbacks (err, doc, meta)
 
 exports.Node = class Nodes
-	constructor: () ->
-		base = require('./Base').Base
-		@Base = base.getInstance()
-	
-	insert: (id, doc, callback) ->
-		@Base.rdb.hset "yo", "yo", "yo", callback
+  constructor: () ->
+    base = require('./Base').Base
+    @Base = base.getInstance()
+    @namespace = @Base.namespace
+    @db = @Base.rdb
+  
+  insert: (id, doc, callback) ->
+    @db.hsetnx "#{@namespace}_node:#{id}", 'json', doc, (err, res) ->
+      if callback?
+        callback err, res, null
+        
+  #delete: (id, callback) ->
+    #we have to unlink the hash first
 
-		
-	
-	#delete: (id, callback) ->
+  retrieve: (id, callback) ->
+    @db.hget "#{@namespace}_node:#{id}", 'json', (err, res) ->
+      if callback?
+        callback err, res, null
 
-	#retrieve: (id, callback) ->
+  #append: (id, doc, callback) ->
 
-	#append: (id, doc, callback) ->
+  #set: (id, doc, callback) ->
 
-	#prepend: (id, doc, callback) ->
-
-	#set: (id, doc, callback) ->
-
-	#update: (id, doc, cas, callback) ->
+  #update: (id, doc, cas, callback) ->
