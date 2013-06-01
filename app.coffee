@@ -4,7 +4,8 @@ Edge = require('./api/Edges').Edge
 
 exports.InkibraGraph = class InkibraGraph
   constructor: ->
-    console.log "Loading Inkibra Graph"
+    version = require('./package.json').version
+    console.log "Loading Inkibra Graph Version #{version}"
     @Node = new Node()
     console.log "Inkibra Graph Loaded"
     

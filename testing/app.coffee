@@ -12,19 +12,10 @@ require('zappajs') {
   
   @graph = new InkibraGraph()
   
-  @graph.Node.insert "brad", "{ :", (err, res) ->
-    console.log res
-
-  @graph.Node.insert "wood", "", (err, res) ->
-    console.log res
-
-  console.log @graph.register 'likes'
+  console.log "register #{@graph.register 'likes'}"
   
-  @graph.likes.link 'brad', 'tom', (err, res) ->
-    console.log res
+  @graph.likes.link "brad", 'wood', (err, res) ->
+    console.log "links #{res}"
 
-  @graph.likes.has 'brad', 'jack', (err, res) ->
-    console.log res
-  
   @include './routes.coffee'
 

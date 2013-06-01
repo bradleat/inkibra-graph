@@ -3,9 +3,11 @@
 exports.Edge = class Edges
   ##TODO: Return edges in a generic 'edge' format
   constructor: (@_name) ->
-    base = require('./Base').Base
-    @Base = base.getInstance()
+    Base = require('./Base').Base
+    @Base = Base.getInstance()
     @namespace = @Base.namespace
+    Node = require('./Nodes').Node
+    @Node = new Node()
     @db = @Base.rdb
     @Edge =
       name: @_name
@@ -15,11 +17,23 @@ exports.Edge = class Edges
 
 
   ##TODO: Union, Intersect, Diff
-  ##TODO: Make sure both nodes exist
   link: (node1, node2, callback) ->
-    @db.zincrby "#{@namespace}_edge:#{node1}", 1, node2, (err, res) ->
-      if callback?
-        callback err, res, null
+    node1_exists = false
+    node2_exists = false
+    _Node = @Node
+    _db = @db
+    _namespace = @namespace
+
+    _Node.exists node1, (err, res1) ->
+        node1_exists = res1
+      _Node.exists node2, (err, res2) ->
+          node2_exists = res2
+          if node1_exists is true and node2_exists is true
+            _db.zincrby "#{_namespace}_edge:#{node1}", 1, node2, (err, res) ->
+              if callback?
+                callback err, res, null
+              else if callback?
+                callback 'ERROR', false, null
 
   delink: (node1, node2, callback) ->
     @db.zincrby "#{@namespace}_edge:#{node1}", -1, node2, (err, res) ->
